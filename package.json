@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nitro build",
+    "dev": "nitro dev",
+    "prepare": "nitro prepare",
+    "preview": "node .output/server/index.mjs",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "eslint": "^9.21.0",
+    "nitropack": "latest"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "xml2js": "^0.6.2",
+    "xmlbuilder2": "^3.1.1",
+    "zod": "^3.24.2"
+  }
+}
