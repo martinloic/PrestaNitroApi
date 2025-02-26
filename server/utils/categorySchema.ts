@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const categorySchema = z.object({
   category: z.object({
     id: z.number().int().positive('Id must be a positive integer').optional(),
-    id_parent: z.number().int().positive('Id parent must be a positive integer').optional().default(2),
+    id_parent: z.number().int().positive('Id parent must be a positive integer').optional(),
     level_depth: z.number().int().positive('Level depth must be a positive integer').optional(),
     nb_products_recursive: z.number().int().positive().optional(),
     active: z.number().int().positive().default(1),
