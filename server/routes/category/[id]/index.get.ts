@@ -24,6 +24,7 @@ export default defineEventHandler(async (event) => {
 
     const responseText = await response.text();
     const responseData = JSON.parse(responseText);
+
     return {
       success: true,
       data: responseData
