@@ -3,10 +3,11 @@ import { z } from 'zod';
 export default defineEventHandler(async (event) => {
 
   try {
-    const id = getRouterParam(event, 'id');
-    const verifiedId = z.coerce.number().parse(id);
+    const { id } = await getValidatedRouterParams(event, z.object({
+      id: z.coerce.number()
+    }).parse)
 
-    const prestashopApiUrl = `${process.env.PRESTASHOP_URL}/api/products/${verifiedId}?output_format=JSON`;
+    const prestashopApiUrl = `${process.env.PRESTASHOP_URL}/api/products/${id}?output_format=JSON`;
     const apiKey = process.env.PRESTASHOP_API_KEY;
 
     const response = await fetch(prestashopApiUrl, {
