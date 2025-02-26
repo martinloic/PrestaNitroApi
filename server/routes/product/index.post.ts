@@ -4,18 +4,16 @@ import { parseStringPromise } from 'xml2js'; // You need to install this package
 
 export default defineEventHandler(async (event) => {
   try {
-    const body = await readBody(event);
-    const parsedData = productSchema.parse(body);
+    const body = await readValidatedBody(event, productSchema.parse)
 
     const prestashopApiUrl = process.env.PRESTASHOP_URL+'/api/products';
     const apiKey = process.env.PRESTASHOP_API_KEY;
 
     // Convert JSON to XML using xmlbuilder2
     const xmlDoc = create({ version: '1.0', encoding: 'UTF-8' });
-    const xmlData = xmlDoc.ele('prestashop').ele(parsedData).end({ prettyPrint: true });
+    const xmlData = xmlDoc.ele('prestashop').ele(body).end({ prettyPrint: true });
 
     console.log("Body", body);
-    console.log("Parse", parsedData.product);
     console.log("xmlData", xmlData);
 
     // return xmlData;
