@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   try {
     const { id } = await getValidatedRouterParams(event, z.object({
       id: z.coerce.number()
-    }).parse)
+    }).parse);
 
     const prestashopApiUrl = `${process.env.PRESTASHOP_URL}/api/products/${id}?output_format=JSON`;
     const apiKey = process.env.PRESTASHOP_API_KEY;
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
       method: 'GET',
       headers: {
         'Authorization': 'Basic ' + Buffer.from(apiKey + ':').toString('base64'),
-        'Content-Type': 'application/xml',
+        'Content-Type': 'application/xml'
       }
     });
 
@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
     const responseData = JSON.parse(responseText);
     return {
       success: true,
-      data: responseData,
+      data: responseData
     };
 
   } catch (error) {
@@ -35,13 +35,13 @@ export default defineEventHandler(async (event) => {
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        errors: error.errors,
+        errors: error.errors
       };
     }
 
     return {
       success: false,
-      message: error.message,
+      message: error.message
     };
   }
-})
+});

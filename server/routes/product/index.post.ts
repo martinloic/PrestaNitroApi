@@ -4,7 +4,7 @@ import { parseStringPromise } from 'xml2js'; // You need to install this package
 
 export default defineEventHandler(async (event) => {
   try {
-    const body = await readValidatedBody(event, productSchema.parse)
+    const body = await readValidatedBody(event, productSchema.parse);
 
     const prestashopApiUrl = process.env.PRESTASHOP_URL+'/api/products';
     const apiKey = process.env.PRESTASHOP_API_KEY;
@@ -13,8 +13,8 @@ export default defineEventHandler(async (event) => {
     const xmlDoc = create({ version: '1.0', encoding: 'UTF-8' });
     const xmlData = xmlDoc.ele('prestashop').ele(body).end({ prettyPrint: true });
 
-    console.log("Body", body);
-    console.log("xmlData", xmlData);
+    console.log('Body', body);
+    console.log('xmlData', xmlData);
 
     // return xmlData;
 
@@ -22,9 +22,9 @@ export default defineEventHandler(async (event) => {
       method: 'POST',
       headers: {
         'Authorization': 'Basic ' + Buffer.from(apiKey + ':').toString('base64'),
-        'Content-Type': 'application/xml',
+        'Content-Type': 'application/xml'
       },
-      body: xmlData,
+      body: xmlData
     });
 
     if (!response.ok) {
@@ -36,20 +36,20 @@ export default defineEventHandler(async (event) => {
     const responseData = await parseStringPromise(responseText);
     return {
       success: true,
-      data: responseData,
+      data: responseData
     };
   } catch (error) {
     console.log(error);
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        errors: error.errors,
+        errors: error.errors
       };
     }
 
     return {
       success: false,
-      message: error.message,
+      message: error.message
     };
   }
 });
