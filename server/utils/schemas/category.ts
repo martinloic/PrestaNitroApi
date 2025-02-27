@@ -30,10 +30,6 @@ export const categorySchema = z.object({
         })
       )
     }),
-    // link_rewrite: z.string().min(5, 'Link rewrite must be at least 5 characters long')
-    //   .regex(/^[a-z0-9-]+$/, {
-    //     message: 'Link rewrite must contain only lowercase letters, numbers, and hyphens.'
-    //   }),
     description: z.object({
       language: z.array(
         z.object({
@@ -42,8 +38,6 @@ export const categorySchema = z.object({
         })
       )
     }).optional(),
-    // description: z.string().min(20, 'Description must be at least 5 characters long').optional(),
-    // meta_title: z.string().min(20, 'Meta title is required, must be at least 20 characters'),
     meta_title: z.object({
       language: z.array(
         z.object({
@@ -60,7 +54,6 @@ export const categorySchema = z.object({
         })
       )
     }),
-    // meta_description: z.string().min(30, 'Meta description is required, must be at least 30 characters'),
     meta_keywords: z.string().optional(),
     associations: z.object({
       categories: z.object({
@@ -70,6 +63,7 @@ export const categorySchema = z.object({
           })
         )
       }).optional(),
+      // TODO : View why product attribution is not working here
       products: z.object({
         product: z.array(
           z.object({
@@ -80,6 +74,5 @@ export const categorySchema = z.object({
     }).optional()
   })
 });
-
 
 export type CategorySchema = z.output<typeof categorySchema>;
