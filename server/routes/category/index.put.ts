@@ -5,10 +5,6 @@ import { categorySchema } from '~/utils/schemas/category';
 
 export default defineEventHandler(async (event) => {
   try {
-    const { id } = await getValidatedRouterParams(event, z.object({
-      id: z.coerce.number()
-    }).parse);
-
     const body = await readValidatedBody(event, categorySchema.parse);
 
     // Appliquer la transformation sur "category"
@@ -16,15 +12,15 @@ export default defineEventHandler(async (event) => {
       transformLanguages(body.category);
     }
 
-    const prestashopApiUrl = `${process.env.PRESTASHOP_URL}/api/categories/${id}`;
+    const prestashopApiUrl = `${process.env.PRESTASHOP_URL}/api/categories/`;
     const apiKey = process.env.PRESTASHOP_API_KEY;
 
     // Convert JSON to XML using xmlbuilder2
     const xmlDoc = create({ version: '1.0', encoding: 'UTF-8' });
     const xmlData = xmlDoc.ele('prestashop').ele(body).end({ prettyPrint: true });
 
-    console.log('Body', body);
-    console.log('xmlData', xmlData);
+    // console.log('Body', body);
+    // console.log('xmlData', xmlData);
 
     const response = await fetch(prestashopApiUrl, {
       method: 'PUT',
