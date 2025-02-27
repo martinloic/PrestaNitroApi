@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { create } from 'xmlbuilder2';
-import { parseStringPromise } from 'xml2js'; // You need to install this package
+import { parseStringPromise } from 'xml2js';
+import { productSchema } from '~/utils/schemas/product';
 
 export default defineEventHandler(async (event) => {
   try {
