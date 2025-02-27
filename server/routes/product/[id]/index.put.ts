@@ -15,9 +15,9 @@ export default defineEventHandler(async (event) => {
     const xmlDoc = create({ version: '1.0', encoding: 'UTF-8' });
     const xmlData = xmlDoc.ele('prestashop').ele(parsedData).end({ prettyPrint: true });
 
-    console.log('Body', body);
-    console.log('Parse', parsedData);
-    console.log('xmlData', xmlData);
+    // console.log('Body', body);
+    // console.log('Parse', parsedData);
+    // console.log('xmlData', xmlData);
     // return 'Data sent successfully';
 
     const response = await fetch(prestashopApiUrl, {
